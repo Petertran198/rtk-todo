@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const initialState = {
     todoList: [
         { id: 1, title: 'todo1', completed: false },
-        { id: 2, title: 'todo2', completed: false },
+        { id: 2, title: 'todo2', completed: true },
         { id: 3, title: 'todo3', completed: true },
         { id: 4, title: 'todo4', completed: false },
         { id: 5, title: 'todo5', completed: false },
@@ -36,11 +36,22 @@ export const todoSlice = createSlice({
             });
             state.todoList = filteredList;
         },
+        toggleTodoCompleted: (state, action) => {
+            const updated = state.todoList.map((todo) => {
+                if (todo.id === action.payload.id) {
+                    return { ...todo, completed: !todo.completed };
+                } else {
+                    return todo;
+                }
+            });
+            state.todoList = updated;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addTodoItem, selectedTodo, deleteTodo } = todoSlice.actions;
+export const { addTodoItem, selectedTodo, deleteTodo, toggleTodoCompleted } =
+    todoSlice.actions;
 export const getSelectedTodo = (state) => state.todos.selectedTodoItem;
 export const allTodos = (state) => state.todos.todoList;
 export default todoSlice.reducer;

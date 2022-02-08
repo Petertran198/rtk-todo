@@ -1,13 +1,23 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTodo } from '../app/todoSlice';
-
+import { deleteTodo, toggleTodoCompleted } from '../app/todoSlice';
+import './todos.css';
 function TodoItem({ title, id, completed }) {
     const dispatch = useDispatch();
     return (
         <div className='d-flex m-1'>
-            <li className='list-group-item active w-75' aria-current='true'>
-                <input type='checkbox'></input> {title}
+            <li
+                className={`list-group-item w-75 ${
+                    completed === true && 'completed'
+                }`}
+                aria-current='true'
+            >
+                <input
+                    type='checkbox'
+                    checked={completed}
+                    onClick={() => dispatch(toggleTodoCompleted({ id: id }))}
+                ></input>{' '}
+                {title}
             </li>
             <button className='btn btn-success w-25 border-0 border-radius-none'>
                 Edit
