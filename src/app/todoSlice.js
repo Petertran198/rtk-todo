@@ -30,11 +30,17 @@ export const todoSlice = createSlice({
             });
             state.selectedTodoItem = state.todoList[i];
         },
+        deleteTodo: (state, action) => {
+            const filteredList = state.todoList.filter((todo) => {
+                return todo.id !== action.payload.id;
+            });
+            state.todoList = filteredList;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addTodoItem, selectedTodo } = todoSlice.actions;
+export const { addTodoItem, selectedTodo, deleteTodo } = todoSlice.actions;
 export const getSelectedTodo = (state) => state.todos.selectedTodoItem;
 export const allTodos = (state) => state.todos.todoList;
 export default todoSlice.reducer;
