@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodoItem, getSelectedTodo } from '../app/todoSlice';
+import {
+    addTodoItem,
+    editTodo,
+    getSelectedTodo,
+    setSelectedTodo,
+} from '../app/todoSlice';
 
 function TodoForm() {
     const selectedTodo = useSelector(getSelectedTodo);
     const dispatch = useDispatch();
-    const [todoItem, setTodoItem] = useState(
-        Object.keys(selectedTodo).length > 0 ? { ...selectedTodo } : { title: '' }
-    );
+    const [todoItem, setTodoItem] = useState({ title: '' });
+
+    useEffect(() => {
+        setTodoItem({ ...selectedTodo });
+    }, [selectedTodo]);
 
     const handleAddTodo = (e) => {
         e.preventDefault();
-        dispatch(addTodoItem({ title: todoItem.title }));
-        setTodoItem({ title: '' });
+        if (Object.keys(selectedTodo).length === 0) {
+            dispatch(addTodoItem({ title: todoItem.title }));
+            setTodoItem({ title: '' });
+        } else {
+            dispatch(editTodo({ id: todoItem.id, title: todoItem.title }));
+            setTodoItem({ title: '' });
+        }
+        dispatch(setSelectedTodo({}));
     };
 
     return (
@@ -21,6 +34,7 @@ function TodoForm() {
                 <input
                     type='text'
                     className='form-control mr-1'
+                    id='form'
                     placeholder='Add todo...'
                     value={todoItem.title}
                     onChange={(e) =>

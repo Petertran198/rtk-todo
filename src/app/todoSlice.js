@@ -24,15 +24,29 @@ export const todoSlice = createSlice({
             };
             state.todoList.push(todo);
         },
-        selectedTodo: (state, action) => {
+        setSelectedTodo: (state, action) => {
             const i = state.todoList.findIndex((todo) => {
                 return todo.id === action.payload.id;
             });
-            state.selectedTodoItem = state.todoList[i];
+            if (i !== -1) {
+                state.selectedTodoItem = state.todoList[i];
+            } else {
+                state.selectedTodoItem = {};
+            }
         },
         deleteTodo: (state, action) => {
             const filteredList = state.todoList.filter((todo) => {
                 return todo.id !== action.payload.id;
+            });
+            state.todoList = filteredList;
+        },
+        editTodo: (state, action) => {
+            const filteredList = state.todoList.map((todo) => {
+                if (todo.id === action.payload.id) {
+                    return { ...todo, title: action.payload.title };
+                } else {
+                    return todo;
+                }
             });
             state.todoList = filteredList;
         },
@@ -50,8 +64,13 @@ export const todoSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addTodoItem, selectedTodo, deleteTodo, toggleTodoCompleted } =
-    todoSlice.actions;
+export const {
+    addTodoItem,
+    setSelectedTodo,
+    deleteTodo,
+    toggleTodoCompleted,
+    editTodo,
+} = todoSlice.actions;
 export const getSelectedTodo = (state) => state.todos.selectedTodoItem;
 export const allTodos = (state) => state.todos.todoList;
 export default todoSlice.reducer;

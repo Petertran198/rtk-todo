@@ -5,3 +5,7 @@
 .completed {
     background: lightgray;
 }
+
+.edit {
+    background-color: lightgreen;
+}
