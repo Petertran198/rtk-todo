@@ -1,14 +1,23 @@
+import { useSelector } from 'react-redux';
 import './App.css';
-import TodoContainer from './components/TodoContainer';
-import TodoForm from './components/TodoForm';
+import { allTodos } from './app/todoSlice';
+import TodoContainer from './components/todos/TodoContainer';
+import TodoForm from './components/todos/TodoForm';
+import NavbarMenu from './components/navbar/Navbar';
 
 function App() {
+    const todos = useSelector(allTodos);
+    const filteredCompletedTodo = todos.filter((todo) => todo.completed === true);
     return (
-        <div className='container'>
-            <h1 className='h1'>Todo Application</h1>
-            <TodoForm />
-            <hr />
-            <TodoContainer />
+        <div>
+            <div className='container'>
+                <NavbarMenu />
+                <TodoForm />
+                <hr />
+                <TodoContainer />
+                <br />
+                <h4>Completed todos {filteredCompletedTodo.length}</h4>
+            </div>
         </div>
     );
 }

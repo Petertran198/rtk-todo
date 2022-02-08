@@ -8,7 +8,7 @@ const initialState = {
         ? isLocalTodosFilled
         : [
               { id: 1, title: 'todo1', completed: false },
-              { id: 2, title: 'todo1', completed: false },
+              { id: 2, title: 'todo2', completed: false },
               { id: 3, title: 'todo2', completed: true },
               { id: 4, title: 'todo3', completed: true },
               { id: 5, title: 'todo3', completed: true },

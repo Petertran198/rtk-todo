@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { allTodos } from '../app/todoSlice';
+import { allTodos } from '../../app/todoSlice';
 import TodoItem from './TodoItem';
 import './todos.css';
 function TodoContainer() {
-    // const dispatch = useDispatch();
     let todos = useSelector(allTodos);
-
-    useEffect(() => {
-        todos = JSON.parse(window.localStorage.getItem('user'));
-    }, []);
 
     return (
         <>
@@ -18,6 +11,7 @@ function TodoContainer() {
                 {todos.map((todo) => {
                     return (
                         <TodoItem
+                            key={todo.id}
                             title={todo.title}
                             id={todo.id}
                             completed={todo.completed}

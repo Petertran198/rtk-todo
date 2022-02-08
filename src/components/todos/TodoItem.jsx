@@ -6,7 +6,7 @@ import {
     toggleTodoCompleted,
     setSelectedTodo,
     getSelectedTodo,
-} from '../app/todoSlice';
+} from '../../app/todoSlice';
 import './todos.css';
 function TodoItem({ title, id, completed }) {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function TodoItem({ title, id, completed }) {
                 <input
                     type='checkbox'
                     checked={completed}
-                    onClick={() => dispatch(toggleTodoCompleted({ id: id }))}
+                    onChange={() => dispatch(toggleTodoCompleted({ id: id }))}
                 ></input>{' '}
                 {title}
             </li>

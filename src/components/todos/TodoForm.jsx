@@ -5,7 +5,7 @@ import {
     editTodo,
     getSelectedTodo,
     setSelectedTodo,
-} from '../app/todoSlice';
+} from '../../app/todoSlice';
 
 function TodoForm() {
     const selectedTodo = useSelector(getSelectedTodo);
