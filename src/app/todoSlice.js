@@ -1,14 +1,18 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 
+const isLocalTodosFilled = JSON.parse(window.localStorage.getItem('todos'));
+
 const initialState = {
-    todoList: [
-        { id: 1, title: 'todo1', completed: false },
-        { id: 2, title: 'todo2', completed: true },
-        { id: 3, title: 'todo3', completed: true },
-        { id: 4, title: 'todo4', completed: false },
-        { id: 5, title: 'todo5', completed: false },
-    ],
+    todoList: isLocalTodosFilled
+        ? isLocalTodosFilled
+        : [
+              { id: 1, title: 'todo1', completed: false },
+              { id: 2, title: 'todo1', completed: false },
+              { id: 3, title: 'todo2', completed: true },
+              { id: 4, title: 'todo3', completed: true },
+              { id: 5, title: 'todo3', completed: true },
+          ],
     selectedTodoItem: {},
 };
 
@@ -23,6 +27,7 @@ export const todoSlice = createSlice({
                 completed: false,
             };
             state.todoList.push(todo);
+            window.localStorage.setItem('todos', JSON.stringify(state.todoList));
         },
         setSelectedTodo: (state, action) => {
             const i = state.todoList.findIndex((todo) => {
@@ -39,6 +44,7 @@ export const todoSlice = createSlice({
                 return todo.id !== action.payload.id;
             });
             state.todoList = filteredList;
+            window.localStorage.setItem('todos', JSON.stringify(state.todoList));
         },
         editTodo: (state, action) => {
             const filteredList = state.todoList.map((todo) => {
@@ -59,6 +65,7 @@ export const todoSlice = createSlice({
                 }
             });
             state.todoList = updated;
+            window.localStorage.setItem('todos', JSON.stringify(state.todoList));
         },
     },
 });
