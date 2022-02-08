@@ -4,7 +4,8 @@ import { allTodos } from './app/todoSlice';
 import TodoContainer from './components/todos/TodoContainer';
 import TodoForm from './components/todos/TodoForm';
 import NavbarMenu from './components/navbar/Navbar';
-
+import { Switch, Route, Link } from 'react-router-dom';
+import LoginOrSignUpFormContainer from './components/auth/LoginOrSignUpFormContainer';
 function App() {
     const todos = useSelector(allTodos);
     const filteredCompletedTodo = todos.filter((todo) => todo.completed === true);
@@ -12,11 +13,20 @@ function App() {
         <div>
             <div className='container'>
                 <NavbarMenu />
-                <TodoForm />
+                <Switch>
+                    <Route path='/' exact component={TodoContainer}></Route>
+                    <Route
+                        path='/auth'
+                        exact
+                        component={LoginOrSignUpFormContainer}
+                    ></Route>
+                </Switch>
+
+                {/* <TodoForm />
                 <hr />
                 <TodoContainer />
                 <br />
-                <h4>Completed todos {filteredCompletedTodo.length}</h4>
+                <h4>Completed todos {filteredCompletedTodo.length}</h4> */}
             </div>
         </div>
     );
