@@ -15,3 +15,8 @@ export const firebaseConfig = {
 
 const app = initializeApp({ ...firebaseConfig });
 export const auth = getAuth(app);
+
+//HINT For vars that is exported WITHOUT the default word. To import is is like | 'import {auth} from 'path/here/Firebase.jsx'
+//ONLY vars with the default keyword can be imported without {} and can be named anything.
+//Ex | export default app.
+//To import this u can do something like 'import appBlahBlah from 'path/leading/to/app'
