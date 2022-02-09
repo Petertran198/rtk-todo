@@ -1,13 +1,16 @@
 import React from 'react';
 import { Container, Navbar as NavbarBootstrap } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 function Navbar() {
     return (
         <>
             <NavbarBootstrap bg='dark' variant='dark' className='my-2'>
                 <Container>
-                    <NavbarBootstrap.Brand href='#'>
-                        Todo Application
-                    </NavbarBootstrap.Brand>
+                    <Link to='/'>
+                        <NavbarBootstrap.Brand href='#'>
+                            Todo Application
+                        </NavbarBootstrap.Brand>
+                    </Link>
                     <NavbarBootstrap.Toggle />
                     <NavbarBootstrap.Collapse className='justify-content-end'>
                         <NavbarBootstrap.Text>

@@ -2,13 +2,13 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import { allTodos } from './app/todoSlice';
 import TodoContainer from './components/todos/TodoContainer';
-import TodoForm from './components/todos/TodoForm';
 import NavbarMenu from './components/navbar/Navbar';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import LoginOrSignUpFormContainer from './components/auth/LoginOrSignUpFormContainer';
+
 function App() {
     const todos = useSelector(allTodos);
-    const filteredCompletedTodo = todos.filter((todo) => todo.completed === true);
+    // const filteredCompletedTodo = todos.filter((todo) => todo.completed === true);
     return (
         <div>
             <div className='container'>
