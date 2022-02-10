@@ -1,11 +1,24 @@
 import React from 'react';
 import { Container, Navbar as NavbarBootstrap } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../app/userSlice';
+import { auth } from '../../firebase/Firebase';
 import './navbar.css';
 function Navbar() {
     const user = useSelector(getUser);
+    const history = useHistory();
+    const logOut = async (e) => {
+        e.preventDefault();
+        console.log(e);
+        try {
+            await auth.signOut();
+        } catch (error) {
+            console.error(error.message, '-Navbar');
+        }
+    };
+
     return (
         <>
             <NavbarBootstrap bg='dark' variant='dark' className='my-2'>
@@ -18,14 +31,32 @@ function Navbar() {
                     <NavbarBootstrap.Toggle />
                     <NavbarBootstrap.Collapse className='justify-content-end'>
                         <NavbarBootstrap.Text>
-                            Signed in as:{' '}
-                            <strong className='capitalize'>
-                                {user.userInfo.userEmail}
-                            </strong>{' '}
-                            |{' '}
-                            <a href='#' className='text-secondary'>
-                                Sign Out
-                            </a>
+                            {user.userID ? (
+                                <>
+                                    Email:
+                                    <strong className='capitalize'>
+                                        {user.userInfo.userEmail}
+                                    </strong>{' '}
+                                    <a
+                                        href='#'
+                                        className='text-secondary'
+                                        onClick={(e) => logOut(e)}
+                                    >
+                                        | Sign Out
+                                    </a>
+                                </>
+                            ) : (
+                                <>
+                                    {' '}
+                                    <a
+                                        href='#'
+                                        className='text-secondary'
+                                        onClick={() => history.push('./auth')}
+                                    >
+                                        Sign In | Make Account
+                                    </a>
+                                </>
+                            )}
                         </NavbarBootstrap.Text>
                     </NavbarBootstrap.Collapse>
                 </Container>

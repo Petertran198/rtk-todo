@@ -6,11 +6,10 @@ import TodoForm from './TodoForm';
 import './todos.css';
 function TodoContainer() {
     let todos = useSelector(allTodos);
-
+    const completedTodo = todos.filter((todo) => todo.completed == true);
     return (
         <>
             <TodoForm />
-            <br />
             <ul className='list-group '>
                 {todos.map((todo) => {
                     return (
@@ -23,6 +22,8 @@ function TodoContainer() {
                     );
                 })}
             </ul>
+            <hr />
+            <h3>Completed Todos: {completedTodo.length}</h3>
         </>
     );
 }

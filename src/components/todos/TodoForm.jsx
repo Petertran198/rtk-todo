@@ -29,7 +29,7 @@ function TodoForm() {
     };
 
     return (
-        <div>
+        <div className='my-2'>
             <form className='d-flex' onSubmit={handleAddTodo}>
                 <input
                     type='text'
