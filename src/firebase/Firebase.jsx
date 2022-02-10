@@ -1,5 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser, saveUser } from '../app/userSlice';
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,3 +23,18 @@ export const auth = getAuth(app);
 //ONLY vars with the default keyword can be imported without {} and can be named anything.
 //Ex | export default app.
 //To import this u can do something like 'import appBlahBlah from 'path/leading/to/app'
+
+export const useSetUserListener = () => {
+    const [user, setUser] = useState();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                return setUser({ userEmail: user.email, userId: user.uid });
+            } else {
+                setUser({});
+            }
+        });
+    }, []);
+    return user;
+};

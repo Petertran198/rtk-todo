@@ -1,11 +1,12 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useRef } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase/Firebase';
 export default function LoginForm() {
     const emailRef = useRef();
     const passwordRef = useRef();
-
+    const history = useHistory();
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
@@ -15,7 +16,7 @@ export default function LoginForm() {
                 passwordRef.current.value
             );
             const user = userCredentials.user;
-            console.log(user);
+            history.push('./');
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;

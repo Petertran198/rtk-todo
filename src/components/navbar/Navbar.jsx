@@ -1,7 +1,11 @@
 import React from 'react';
 import { Container, Navbar as NavbarBootstrap } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getUser } from '../../app/userSlice';
+import './navbar.css';
 function Navbar() {
+    const user = useSelector(getUser);
     return (
         <>
             <NavbarBootstrap bg='dark' variant='dark' className='my-2'>
@@ -14,7 +18,11 @@ function Navbar() {
                     <NavbarBootstrap.Toggle />
                     <NavbarBootstrap.Collapse className='justify-content-end'>
                         <NavbarBootstrap.Text>
-                            Signed in as: <a href='#'>Mark Otto</a> |{' '}
+                            Signed in as:{' '}
+                            <strong className='capitalize'>
+                                {user.userInfo.userEmail}
+                            </strong>{' '}
+                            |{' '}
                             <a href='#' className='text-secondary'>
                                 Sign Out
                             </a>
