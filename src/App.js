@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { allTodos } from './app/todoSlice';
 import TodoContainer from './components/todos/TodoContainer';
 import NavbarMenu from './components/navbar/Navbar';
 import { Switch, Route } from 'react-router-dom';
 import LoginOrSignUpFormContainer from './components/auth/LoginOrSignUpFormContainer';
 import { getUser, saveUser } from './app/userSlice';
 import { useSetUserListener } from './firebase/Firebase';
+import RestrictedRoutes from './routes/RestrictedRoutes';
 
 function App() {
     const dispatch = useDispatch();
@@ -24,11 +24,10 @@ function App() {
                 <NavbarMenu />
                 <Switch>
                     <Route path='/' exact component={TodoContainer}></Route>
-                    <Route
+                    <RestrictedRoutes
                         path='/auth'
-                        exact
                         component={LoginOrSignUpFormContainer}
-                    ></Route>
+                    />
                 </Switch>
             </div>
         </div>

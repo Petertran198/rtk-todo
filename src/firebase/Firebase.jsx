@@ -28,13 +28,14 @@ export const useSetUserListener = () => {
     const [user, setUser] = useState();
     const dispatch = useDispatch();
     useEffect(() => {
-        onAuthStateChanged(auth, async (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 return setUser({ userEmail: user.email, userId: user.uid });
             } else {
                 setUser({});
             }
         });
+        return unsubscribe;
     }, []);
     return user;
 };
