@@ -15,8 +15,8 @@ export default function SignUpForm() {
                 emailRef.current.value,
                 passwordRef.current.value
             );
+            //userCredentials holds the user oject
             const user = userCredentials.user;
-            console.log(user, userCredentials);
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -43,8 +43,8 @@ export default function SignUpForm() {
                             />
                         </Form.Group>
                         <br />
-                        <Button variant='primary' block type='submit'>
-                            Login
+                        <Button variant='primary' type='submit'>
+                            Sign Up
                         </Button>
                     </Form>
                 </Card.Body>

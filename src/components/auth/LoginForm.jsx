@@ -2,11 +2,14 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useRef } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../../firebase/Firebase';
+import { auth, signInWithGoogle } from '../../firebase/Firebase';
+import './auth.css';
+
 export default function LoginForm() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const history = useHistory();
+
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
@@ -15,7 +18,6 @@ export default function LoginForm() {
                 emailRef.current.value,
                 passwordRef.current.value
             );
-            const user = userCredentials.user;
             history.push('./');
         } catch (error) {
             const errorCode = error.code;
@@ -46,9 +48,19 @@ export default function LoginForm() {
                         </Form.Group>
 
                         <br />
-                        <Button variant='success' block type='submit'>
-                            Login
-                        </Button>
+                        <div className='d-flex justify-content-between'>
+                            <Button variant='success' type='submit'>
+                                Login
+                            </Button>
+
+                            <button
+                                type='submit'
+                                onClick={signInWithGoogle}
+                                className='btn btn-light'
+                            >
+                                <i class='fab fa-google'></i> Google
+                            </button>
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>

@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUser, saveUser } from '../app/userSlice';
+import { useDispatch } from 'react-redux';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,7 +26,6 @@ export const auth = getAuth(app);
 
 export const useSetUserListener = () => {
     const [user, setUser] = useState();
-    const dispatch = useDispatch();
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -38,4 +37,19 @@ export const useSetUserListener = () => {
         return unsubscribe;
     }, []);
     return user;
+};
+
+export const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth(app);
+    provider.setCustomParameters({ prompt: 'select_account' });
+    try {
+        await signInWithPopup(auth, provider);
+    } catch (error) {
+        console.log(
+            error.message,
+            '-signInWithGoogle, Firebase.jsx| Error Code: ',
+            error.code
+        );
+    }
 };

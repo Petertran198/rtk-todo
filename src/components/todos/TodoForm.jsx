@@ -36,7 +36,7 @@ function TodoForm() {
                     className='form-control mr-1'
                     id='form'
                     placeholder='Add todo...'
-                    value={todoItem.title}
+                    value={todoItem.title || ''}
                     onChange={(e) =>
                         setTodoItem({ ...todoItem, title: e.target.value })
                     }

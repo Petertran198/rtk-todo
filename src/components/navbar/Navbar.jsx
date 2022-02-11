@@ -23,10 +23,8 @@ function Navbar() {
         <>
             <NavbarBootstrap bg='dark' variant='dark' className='my-2'>
                 <Container>
-                    <Link to='/'>
-                        <NavbarBootstrap.Brand href='#'>
-                            Todo Application
-                        </NavbarBootstrap.Brand>
+                    <Link to='/' className='navbar-brand'>
+                        Todo Application
                     </Link>
                     <NavbarBootstrap.Toggle />
                     <NavbarBootstrap.Collapse className='justify-content-end'>

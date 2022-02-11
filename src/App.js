@@ -10,12 +10,10 @@ import RestrictedRoutes from './routes/RestrictedRoutes';
 
 function App() {
     const dispatch = useDispatch();
-    const user = useSetUserListener();
-
-    if (user) {
-        console.log(user, '---app');
-
-        dispatch(saveUser(user));
+    const currentUser = useSelector(getUser);
+    const userListenerObj = useSetUserListener();
+    if (userListenerObj && currentUser.userInfo.userId != userListenerObj.userId) {
+        dispatch(saveUser(userListenerObj));
     }
 
     return (
